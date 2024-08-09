@@ -2,9 +2,9 @@
 
 一个使用 Cloudflare Pages 创建的 URL 缩短器
 
-*Demo* : [https://d.131213.xyz/](https://d.131213.xyz/)
+*Demo* : https://shorts-4cd.pages.dev/
 
-
+原项目地址:https://github.com/x-dr/short
 
 ### 利用Cloudflare pages部署
 
