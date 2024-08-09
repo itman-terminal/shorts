@@ -168,8 +168,7 @@
         text-align: center;
         opacity: .5;
       }
-
-      footer i {
+footer i {
         font-style: normal;
         color: #ff8787;
       }
@@ -214,6 +213,9 @@
           <small>Slug 默认是随机生成的短 id。</small>
         </div>
       </details>
+       <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+      <div class="g-recaptcha" data-sitekey="6LfMITAoAAAAAONNDa50_DtE6PLoHS7oykEB2_Qy"></div>
+      
       <button :class="{ loading }" :disabled="loading || isValidated()" @click="submit($refs, $nextTick)">生成</button>
     </main>    <footer>
       <a href=https://github.com/x-dr/short>开源地址</a><br>
@@ -221,8 +223,26 @@
       <a href=https://bitly.com/>Bitly</a>     <a href=https://gg.gg> gg.gg</a>   <a href=https://dwz.cn> 百度短网址</a>
     </footer>
     <script src="asset/js/alpine.js"></script>
-    <script>
-      const app = {
+    <script> var widgetId;
+      var onloadCallback = function () {
+        widgetId = grecaptcha.render('robot', {
+          'sitekey': '6LfMITAoAAAAAONNDa50_DtE6PLoHS7oykEB2_Qy',
+          'theme': 'light',
+          'size': 'compact',
+          'callback': callback,
+          'expired-callback': expiredCallback,
+          'error-callback': errorCallback
+        });
+      };
+
+      function getResponseFromRecaptcha() {
+        var responseToken = grecaptcha.getResponse(widgetId);
+        if (responseToken.length == 0) {
+          //验证失败的操作
+          alert("Validation failed");
+        } else {
+          //成功后的操作
+          const app = {
         url: '',
         slug: '',
         alert: null,
@@ -264,13 +284,15 @@
 
               $nextTick(() => {
                 $refs.url.select()
-                this.alert = { type: 'success', message: `链接 ${document.execCommand('Copy') ? '复制' : '生成'} ` }
+                this.alert = { type: 'success', message: 链接 ${document.execCommand('Copy') ? '复制' : '生成'}  }
               })
             })
             .catch(e => {
               this.alert = { type: 'error', message: e.message }
               this.loading = false
             })
+        }
+      }
         }
       }
     </script>
